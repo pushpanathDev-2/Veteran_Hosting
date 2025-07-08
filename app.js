@@ -1,26 +1,15 @@
-require('dotenv').config();
-
 const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors"); // ✅ 1️⃣ Add CORS
-
-const itemRoutes = require("./routes/items");
+const cors = require("cors"); // ✅ Add this
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ✅ 2️⃣ Use CORS middleware (allow all origins or configure as needed)
-app.use(cors());
+app.use(cors()); // ✅ Allow ALL origins by default
 
-app.use(bodyParser.json());
+// your other code:
+app.use(express.json());
+app.use("/items", require("./routes/items"));
 
-// Routes
-app.use("/items", itemRoutes);
+app.get("/", (req, res) => res.send("API is running!"));
 
-// ✅ Railway health check
-app.get("/", (req, res) => {
-  res.send("API is running!");
-});
-
-// Start the server
 app.listen(PORT, () => console.log(`Server running on port ${PORT} 🚀`));
