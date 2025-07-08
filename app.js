@@ -1,18 +1,16 @@
 // app.js
-const express = require('express');
-const bodyParser = require('body-parser');
-const itemRoutes = require('./routes/items');
+const express = require("express");
+const bodyParser = require("body-parser");
+const itemRoutes = require("./routes/items");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(bodyParser.json());
 
 // Routes
-app.use('/items', itemRoutes);
+app.use("/items", itemRoutes);
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// Start the server
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
