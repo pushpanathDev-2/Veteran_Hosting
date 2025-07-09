@@ -1,20 +1,19 @@
 // routes/users/index.js
 const express = require('express');
-const { db } = require('../firebase/config');
+const { db } = require('../../firebase/config');
 
 const router = express.Router();
 const collection = db.collection('users');
 
-// CREATE: Add a new user
-router.post('/', async (req, res) => {
-    try {
-        const data = req.body;
-        const newUser = await collection.add(data);
-        res.status(201).json({ id: newUser.id });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+router.get("/", async (req, res) => {
+  const snapshot = await user.get();
+  const allUsers = [];
+  snapshot.forEach(doc => {
+    allUsers.push({ id: doc.id, ...doc.data() });
+  });
+  res.status(200).json(allUsers);
 });
+
 
 // READ: Get all users
 router.get('/', async (req, res) => {
