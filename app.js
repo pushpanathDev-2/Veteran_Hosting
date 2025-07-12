@@ -4,10 +4,21 @@ const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://veteran-one.vercel.app"
+];
+
 app.use(
   cors({
-    origin: ["http://localhost:3000"], // ✅ Allow only this
-    credentials: true, // ✅ If you need cookies or auth headers
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true,
   })
 );
 
