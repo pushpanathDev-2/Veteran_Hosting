@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 3000;
 
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://veteran-one.vercel.app"
+  "https://veteran-one.vercel.app",
 ];
 
 app.use(
@@ -23,7 +23,7 @@ app.use(
 );
 
 app.use(express.json());
-app.use("/items", require("./routes/items"));
+app.use("/scheme", require("./routes/scheme"));
 app.use("/users", require("./routes/users"));
 
 app.get("/", (req, res) => res.send("API is running!"));
